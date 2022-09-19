@@ -97,7 +97,7 @@ describe('ClubService', () => {
     club = {
       ...club, nombre: "New name"
     }
-    await expect(() => service.update("0", club)).rejects.toHaveProperty("message", "El club con el id dado no fue encontrado")
+    await expect(() => service.update("0", club)).rejects.toHaveProperty("message", "El club con el id dado no existe")
   });
 
   it('delete debe eliminar un club', async () => {
@@ -111,7 +111,7 @@ describe('ClubService', () => {
   it('delete debe arrojar una excepcion para un club innvalido', async () => {
     const club: ClubEntity = clubsList[0];
     await service.delete(club.id);
-    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "El club con el id dado no fue encontrado")
+    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "El club con el id dado no existe")
   });
 
 

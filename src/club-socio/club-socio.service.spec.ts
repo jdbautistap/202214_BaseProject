@@ -75,7 +75,7 @@ describe('ClubSocioService', () => {
     expect(result.socios[0]).not.toBeNull();
     expect(result.socios[0].usuario).toBe(newSocio.usuario)
     expect(result.socios[0].correo).toBe(newSocio.correo)
-    expect(result.socios[0].fechaNacimiento).toBe(newSocio.fechaNacimiento)
+    expect(result.socios[0].fechaNacimiento).toStrictEqual(newSocio.fechaNacimiento)
   });
 
   it('addSocioClub debe retornar una excepcion para un socio invalido', async () => {
@@ -105,7 +105,7 @@ describe('ClubSocioService', () => {
     expect(storedsocio).not.toBeNull();
     expect(storedsocio.usuario).toBe(socio.usuario);
     expect(storedsocio.correo).toBe(socio.correo);
-    expect(storedsocio.fechaNacimiento).toBe(socio.fechaNacimiento);
+    expect(storedsocio.fechaNacimiento).toStrictEqual(socio.fechaNacimiento);
   });
 
   it('findSocioByClubIdSocioId debe retornaruna excepcion por un socio invalido', async () => {
@@ -123,7 +123,7 @@ describe('ClubSocioService', () => {
       correo: faker.lorem.sentence(),
       fechaNacimiento: faker.date.past(),
     });
-    await expect(()=> service.findSocioByClubIdSocioId(club.id, newSocio.id)).rejects.toHaveProperty("message", "El socio no está asociado al club"); 
+    await expect(()=> service.findSocioByClubIdSocioId(club.id, newSocio.id)).rejects.toHaveProperty("message", "El socio con el id no esta asociado al club"); 
   });
 
   it('findSociosByClubId debe retornar todos los socios de un club', async ()=>{
@@ -163,7 +163,7 @@ describe('ClubSocioService', () => {
     const newSocio: SocioEntity = sociosList[0];
     newSocio.id = "0";
 
-    await expect(()=> service.associateSociosClub(club.id, [newSocio])).rejects.toHaveProperty("message", "El socio no fue encontrado"); 
+    await expect(()=> service.associateSociosClub(club.id, [newSocio])).rejects.toHaveProperty("message", "El socio con el id no se encontró"); 
   });
 
   it('deletesocioToclub debe eliminar un socio de un club', async () => {
@@ -179,7 +179,7 @@ describe('ClubSocioService', () => {
   });
 
   it('deletesocioToclub debe arrojar una excepcion para un socio invalido', async () => {
-    await expect(()=> service.deleteSocioClub(club.id, "0")).rejects.toHaveProperty("message", "El socio no fue encontrado"); 
+    await expect(()=> service.deleteSocioClub(club.id, "0")).rejects.toHaveProperty("message", "El socio con el id no se encontró"); 
   });
 
   it('deletesocioToclub debe arrojar una excepcion para un club invalido', async () => {
@@ -194,7 +194,7 @@ describe('ClubSocioService', () => {
       fechaNacimiento: faker.date.past(),
     });
 
-    await expect(()=> service.deleteSocioClub(club.id, newsocio.id)).rejects.toHaveProperty("message", "El socio no está asociado al club"); 
+    await expect(()=> service.deleteSocioClub(club.id, newsocio.id)).rejects.toHaveProperty("message", "El socio con el id no esta asociado al club"); 
   }); 
 
 

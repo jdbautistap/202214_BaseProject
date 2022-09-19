@@ -55,7 +55,7 @@ describe('SocioService', () => {
   });
 
   it('findOne debe retornar una excepcion para un socio pcon id invalido', async () => {
-    await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "El socio con el id dado no existe")
+    await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "El socio con el id dado no fue encontrado")
   });
 
   it('create debe retornar un nuevo socio', async () => {

@@ -19,7 +19,7 @@ export class ClubService {
     async findOne(id: string): Promise<ClubEntity> {
         const club: ClubEntity = await this.clubRepository.findOne({where: {id}, relations: ["socios"] } );
         if (!club)
-          throw new BusinessLogicException("El club con el id dado no fue encontrado", BusinessError.NOT_FOUND);
+          throw new BusinessLogicException("El club con el id dado no existe", BusinessError.NOT_FOUND);
         return club;
     }
    
@@ -32,7 +32,7 @@ export class ClubService {
     async update(id: string, club: ClubEntity): Promise<ClubEntity> {
         const persistedClub: ClubEntity = await this.clubRepository.findOne({where:{id}});
         if (!persistedClub)
-          throw new BusinessLogicException("El club con el id dado no fue encontrado", BusinessError.NOT_FOUND);
+          throw new BusinessLogicException("El club con el id dado no existe", BusinessError.NOT_FOUND);
         club.id = id; 
         return await this.clubRepository.save(club);
     }
@@ -40,7 +40,7 @@ export class ClubService {
     async delete(id: string) {
         const club: ClubEntity = await this.clubRepository.findOne({where:{id}});
         if (!club)
-          throw new BusinessLogicException("El club con el id dado no fue encontrado", BusinessError.NOT_FOUND);
+          throw new BusinessLogicException("El club con el id dado no existe", BusinessError.NOT_FOUND);
      
         await this.clubRepository.remove(club);
     }
